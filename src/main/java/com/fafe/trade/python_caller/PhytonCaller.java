@@ -2,7 +2,6 @@ package com.fafe.trade.python_caller;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,14 +57,14 @@ public class PhytonCaller {
 			// read any errors from the attempted command
 			boolean error = false;
 			while ((s = stdError.readLine()) != null) {
-				if(!error){
+				if (!error) {
 					System.out.println("ERROR:\n");
-					error=true;
+					error = true;
 				}
 				System.out.println(s);
 			}
 
-			if (error){
+			if (error) {
 				throw new Exception("Error while calling " + scriptName);
 			}
 		} catch (Exception e) {
@@ -74,7 +73,7 @@ public class PhytonCaller {
 	}
 
 	public static void main(String[] args) {
-		String[] params = { "2017", "1", "20" };
+		String[] params = { "2017", "5", "12", "MI" };
 		PhytonCaller pc = new PhytonCaller("C:/Users/fafe/workspace/BollingerBand/", "analysis.py", params);
 		try {
 			pc.call();
@@ -83,7 +82,9 @@ public class PhytonCaller {
 			e.printStackTrace();
 		}
 
-		pc = new PhytonCaller("C:/Users/fafe/workspace/BollingerBand/", "order_generator.py", null);
+		String[] orderParams = { "MI", "1", "-0.95", "4" };
+
+		pc = new PhytonCaller("C:/Users/fafe/workspace/BollingerBand/", "order_generator.py", orderParams);
 		try {
 			pc.call();
 		} catch (Exception e) {
